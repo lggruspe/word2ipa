@@ -13,31 +13,15 @@ find-latest-dictionary() {
 version() {
 	pattern="all-(.*).jsonl"
 	[[ "$1" =~ $pattern ]]
-	echo "${BASH_REMATCH[1]}"
+	date -d "${BASH_REMATCH[1]}" '+%Y.%m.%d'
 }
 
-path="$(find-latest-dictionary)"
-broad="data/word2ipa-broad-$(version "$path")"
-narrow="data/word2ipa-broad+narrow-$(version "$path")"
-
-found=0
-if [ -d "$broad" ]; then
-	echo "$broad already exists"
-	found="$((found + 1))"
-fi
-
-if [ -d "$narrow" ]; then
-	echo "$narrow already exists"
-	found="$((found + 1))"
-fi
-
-if [ "$found" = "2" ]; then
-	echo ":)"
-	exit 0
-fi
-
 # Build CSV files.
-mkdir -p "$broad" "$narrow"
-python -m word2ipa "$path" | sort | uniq > "$broad/word2ipa.csv"
-python -m word2ipa "$path" --include-narrow-transcriptions | sort | uniq > "$narrow/word2ipa.csv"
-echo ":)"
+dictionary="$(find-latest-dictionary)"
+version="$(version "$dictionary")"
+echo "Building version $version"
+
+python -m word2ipa "$dictionary" -b data/broad.csv -n data/narrow.csv -u data/unknown.csv
+echo "$version" > data/version.txt
+
+echo "Done :)"
