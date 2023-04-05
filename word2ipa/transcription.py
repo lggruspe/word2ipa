@@ -61,12 +61,14 @@ def extract_transcriptions(data: Schema) -> t.Iterator[Transcription]:
 
 
 # Regex for removing parentheses and everything in between.
-parenthesis_pattern = re.compile(r"\(.*\)")
+parenthesis_pattern = re.compile(r"\(.*\)|⁽[¹²³⁴⁵⁻ʰʲᵏˡᵖˢᵗʷᵝ]*⁾")
 
 # Translation table for removing parentheses.
 parenthesis_table = {
     ord("("): "",
     ord(")"): "",
+    ord("⁽"): "",
+    ord("⁾"): "",
 }
 
 
