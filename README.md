@@ -2,6 +2,8 @@
 
 Word-to-IPA transcriptions extracted from Wiktionary.
 
+[Download](https://github.com/lggruspe/word2ipa/releases)
+
 Sample:
 
 ```csv
@@ -25,6 +27,9 @@ en,ablutionary,əˈblu.ʃəˌnɛ.ɹi
 Each row contains a Wiktionary language code, a word and its transcription.
 
 ## Extracting IPA transcriptions
+
+The easiest way to get the IPA transcriptions is to download [a pre-packaged release](https://github.com/lggruspe/word2ipa/releases).
+You may also extract IPA transcriptions yourself, by following these instructions.
 
 ```bash
 # Clone the repo.
