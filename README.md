@@ -6,22 +6,22 @@ Word-to-IPA transcriptions extracted from Wiktionary.
 
 Sample:
 
-```csv
-en,ablest,eɪ.bləst
-en,abligation,ɑb.ləˈɡeɪ.ʃən
-en,abligurition,əˌblɪɡjʊˈɹɪʃən
-en,ablings,ˈeɪ.blɪnz
-en,ablood,əˈblʌd
-en,abloom,əˈbluːm
-en,ablow,əˈbloʊ
-en,ablude,əˈbluːd
-en,abluent,ˈæb.lu.ənt
-en,ablur,əˈblɜː
-en,ablur,əˈblɜːɹ
-en,ablush,əˈblʌʃ
-en,ablute,əˈbluːt
-en,ablute,əˈblut
-en,ablutionary,əˈblu.ʃəˌnɛ.ɹi
+```tsv
+en	ablest	eɪ.bləst
+en	abligation	ɑb.ləˈɡeɪ.ʃən
+en	abligurition	əˌblɪɡjʊˈɹɪʃən
+en	ablings	ˈeɪ.blɪnz
+en	ablood	əˈblʌd
+en	abloom	əˈbluːm
+en	ablow	əˈbloʊ
+en	ablude	əˈbluːd
+en	abluent	ˈæb.lu.ənt
+en	ablur	əˈblɜː
+en	ablur	əˈblɜːɹ
+en	ablush	əˈblʌʃ
+en	ablute	əˈbluːt
+en	ablute	əˈblut
+en	ablutionary	əˈblu.ʃəˌnɛ.ɹi
 ```
 
 Each row contains a Wiktionary language code, a word and its transcription.
@@ -55,7 +55,7 @@ Copyright 2023 Levi Gruspe
 
 The scripts in this repository are licensed under [GPLv3 or later](./LICENSES/GNU_GPLv3.txt).
 
-The published CSV files are released under a [Creative Commons Attribution-ShareAlike 3.0 Unported License](./LICENSES/CC_BY-SA_3.0.txt).
+The published TSV files are released under a [Creative Commons Attribution-ShareAlike 3.0 Unported License](./LICENSES/CC_BY-SA_3.0.txt).
 These are extracted from Wiktionary with the help of [wiktextract](https://github.com/tatuylonen/wiktextract) and [kaikki.org](https://kaikki.org/index.html).
 
 Wiktionary is licensed under [CC BY-SA 3.0](https://en.wiktionary.org/wiki/Wiktionary:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License).

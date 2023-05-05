@@ -16,12 +16,12 @@ version() {
 	date -d "${BASH_REMATCH[1]}" '+%Y.%m.%d'
 }
 
-# Build CSV files.
+# Build TSV files.
 dictionary="$(find-latest-dictionary)"
 version="$(version "$dictionary")"
 echo "Building version $version"
 
-python -m word2ipa "$dictionary" -b data/broad.csv -n data/narrow.csv -u data/unknown.csv
+python -m word2ipa "$dictionary" -b data/broad.tsv -n data/narrow.tsv -u data/unknown.tsv
 echo "$version" > data/version.txt
 
 echo "Done :)"

@@ -85,14 +85,14 @@ def main(args: Namespace) -> None:
 
 
 def write_records(path: Path | None, records: set[Record]) -> None:
-    """Write records into a CSV in sorted order."""
+    """Write records into a TSV file in sorted order."""
     if path is None:
         return
 
     with open(path, "w", encoding="utf-8") as file:
-        csv_file = writer(file)
+        tsv_file = writer(file, delimiter="\t")
         for record in sorted(records):
-            csv_file.writerow(record)
+            tsv_file.writerow(record)
 
 
 if __name__ == "__main__":
