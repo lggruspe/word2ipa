@@ -21,7 +21,7 @@ dictionary="$(find-latest-dictionary)"
 version="$(version "$dictionary")"
 echo "Building version $version"
 
-python -m word2ipa "$dictionary" -b data/broad.tsv -n data/narrow.tsv -u data/unknown.tsv
+python -m word2ipa "$dictionary" -b data/broad.tsv -n data/narrow.tsv -u data/unknown.tsv 2> data/error.log
 echo "$version" > data/version.txt
 
 echo "Done :)"

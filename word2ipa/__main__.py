@@ -5,6 +5,7 @@
 
 from argparse import ArgumentParser, Namespace
 from csv import writer
+from logging import warning
 from pathlib import Path
 import typing as t
 
@@ -69,7 +70,12 @@ def main(args: Namespace) -> None:
             word = data["word"]
             lang_code = data["lang_code"]
 
-            for transcription in extract_transcriptions(data):
+            complete, partial = extract_transcriptions(data)
+
+            # Only use complete transcriptions, unless there aren't any.
+            transcriptions = complete or partial
+
+            for transcription in transcriptions:
                 record = (lang_code, word, transcription.transcription)
                 match transcription.kind:
                     case TranscriptionKind.BROAD if args.broad is not None:
@@ -78,6 +84,17 @@ def main(args: Namespace) -> None:
                         narrow.add(record)
                     case TranscriptionKind.UNKNOWN if args.unknown is not None:
                         unknown.add(record)
+
+            if complete and partial:
+                # In this case, partial transcriptions won't be used.
+                # Log unused transcriptions.
+                for unused in partial:
+                    warning(
+                        "[unused-transcription] %s word=%s, ipa=%s",
+                        lang_code,
+                        word,
+                        unused.transcription,
+                    )
 
     write_records(args.broad, broad)
     write_records(args.narrow, narrow)

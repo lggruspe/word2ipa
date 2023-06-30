@@ -35,6 +35,14 @@ def transcription_kind(ipa: str) -> TranscriptionKind:
     return TranscriptionKind.UNKNOWN
 
 
+def is_complete(ipa: str) -> bool:
+    """Check if the IPA transcription is complete.
+
+    An IPA transcription is complete if it doesn't or end with a hyphen.
+    """
+    return not ipa.startswith("-") and not ipa.endswith("-")
+
+
 # Translation table for removing brackets from IPA transcriptions.
 bracket_table = {
     ord("/"): "",
@@ -43,8 +51,16 @@ bracket_table = {
 }
 
 
-def extract_transcriptions(data: Schema) -> t.Iterator[Transcription]:
-    """Extract transcriptions for a given word from the kaikki data."""
+def extract_transcriptions(
+    data: Schema,
+) -> tuple[list[Transcription], list[Transcription]]:
+    """Extract transcriptions for a given word from the kaikki data.
+
+    Returns a list of complete transcriptions, and a list of possibly partial
+    transcriptions.
+    """
+    complete = []
+    partial = []
     for sound in data.get("sounds", []):
         if "ipa" not in sound:
             continue
@@ -54,10 +70,12 @@ def extract_transcriptions(data: Schema) -> t.Iterator[Transcription]:
         raw = raw.translate(bracket_table)
 
         for transcription in expand(raw):
-            yield Transcription(
-                transcription=transcription,
-                kind=kind,
-            )
+            item = Transcription(transcription=transcription, kind=kind)
+            if is_complete(transcription):
+                complete.append(item)
+            else:
+                partial.append(item)
+    return complete, partial
 
 
 # Regex for removing parentheses and everything in between.
